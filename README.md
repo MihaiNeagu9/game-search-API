@@ -39,7 +39,7 @@ cd game-search-API
 npm install
 ```
 
-2. Configure environment variables
+### 2. Configure environment variables
 
 Create a .env file in the project root:
 
@@ -49,11 +49,10 @@ RAWG_API_KEY=your_rawg_api_key_here
 
 You can get an API key from: https://rawg.io/apidocs
 
-3. Run the app
 
+### 3. Run the app
 In development:
 ```bash
 nodemon index.js
 ```
-
 By default the app listens on: http://localhost:3000
