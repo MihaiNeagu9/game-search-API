@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Main game search page template -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Games</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Let's find something for you to play 🎮</h1>
+
+        <!-- Filter form: genre + year -->
+        <form action="/" class="form" method="POST">
+            <!-- Global error / info message from the server -->
+            <% if (locals.errorMessage) { %>
+                <p class="error-message"><%= errorMessage %></p>
+            <% } %>
+
+
+            <!-- Genre dropdown (values are RAWG genre slugs) -->
+            <select name="genre" class="form-select">
+                <option value="">Random genre</option>
+                <% if (locals.listGenres) { %>
+                    <% listGenres.forEach(element => { %>
+                        <option
+                            value="<%= element.slug %>"
+                            <%= locals.selectedGenre === element.slug ? "selected" : "" %>>
+                            <%= element.name %>
+                        </option>
+                    <% }) %>
+                <% } %>
+            </select>
+
+            <!-- Year dropdown (keeps selected value after POST) -->
+            <select name="year" class="form-select">
+                <option value="">Random year</option>
+                    <% if (locals.year) { %>
+                        <% year.forEach(element => { %>
+                            <option
+                                value="<%= element %>"
+                                <%= String(locals.selectedYear) === String(element) ? "selected" : "" %>>
+                                <%= element %>
+                            </option>
+                        <% }) %>
+                    <% } %>
+            </select>
+
+            <button type="submit" class="form-submit">Go</button>
+        </form>
+
+        <!-- Random game result (only rendered after POST with a game) -->
+        <% if (locals.name && locals.genreGame && locals.release && locals.image) { %>
+            <div class="result">
+                <h3><%= name %> - <%= genreGame %> - <%= release %></h3>
+
+                 <!-- Game cover with loading overlay -->
+                 <div class="image-wrapper">
+                    <div class="image-loader" id="image-loader">Loading image...</div>
+                    <img
+                        id="game-image"
+                        src="<%= image %>"
+                        alt="<%= name %>"
+                        style="opacity: 0;"
+                    >
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+    <!-- Simple loader logic: hide overlay when the image is loaded -->
+    <script>
+        const img = document.getElementById('game-image');
+        const loader = document.getElementById('image-loader');
+
+        if (img && loader) {
+            img.addEventListener('load', () => {
+            loader.style.display = 'none';
+            img.style.opacity = '1';
+            });
+        }
+    </script>
+</body>
+</html>
