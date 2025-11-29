@@ -31,7 +31,7 @@ GitHub repository: https://github.com/MihaiNeagu9/game-search-API
 
 ## Getting Started
 
-### 1. Clone and install
+Clone and install
 
 ```bash
 git clone https://github.com/MihaiNeagu9/game-search-API.git
